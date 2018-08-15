@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, Button } from "react-native";
+import { View, Text, Button } from "native-base";
 
 class RegistrationScreen extends Component {
   constructor(props) {
@@ -10,11 +10,13 @@ class RegistrationScreen extends Component {
   render() {
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Home Screen</Text>
+        
         <Button
           title="Go to Home"
           onPress={() => this.props.navigation.navigate('Home')}
-        />
+        >
+          <Text>Home Screen</Text>
+        </Button>
       </View>
     );
   }
