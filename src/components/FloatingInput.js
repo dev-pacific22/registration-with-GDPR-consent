@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet } from "react-native";
 import { Item, Icon, Label, Input } from "native-base";
+import { COLORS } from "../utils";
 
 class FloatingInput extends Component {
   constructor(props) {
@@ -9,7 +10,15 @@ class FloatingInput extends Component {
   }
 
   render() {
-    const { placeHolder, hasError, iconName, errorMessage, hasSecureTextEntry } = this.props;
+    const {
+      placeHolder,
+      hasError,
+      iconName,
+      errorMessage,
+      hasSecureTextEntry,
+      value,
+      key
+    } = this.props;
     return (
       <React.Fragment>
         <Item floatingLabel error={hasError} style={styles.inputElement}>
@@ -23,6 +32,8 @@ class FloatingInput extends Component {
           <Input
             secureTextEntry={hasSecureTextEntry}
             style={styles.inputPaddingLeft}
+            onChangeText={text => this.props.onChangeText(text, key)}
+            value={value}
           />
         </Item>
         {hasError ? (
@@ -53,9 +64,11 @@ const styles = StyleSheet.create({
     marginLeft: 5
   },
   errorMessageStyle: {
-    color: "red",
+    color: COLORS.ERROR_LABEL,
     fontSize: 14,
-    paddingTop: 5
+    paddingTop: 5,
+    paddingLeft: 5,
+    paddingRight: 5
   },
   inputPaddingLeft: {
     paddingLeft: 10
