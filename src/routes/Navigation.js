@@ -8,6 +8,8 @@ export const NavigationStack = createStackNavigator(
     Home: HomeScreen
   },
   {
-    initialRouteName: "Registration"
-  }
+    initialRouteName: "Registration",
+    headerMode: "none"
+  },
+
 );

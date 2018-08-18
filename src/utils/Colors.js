@@ -1,0 +1,6 @@
+export const COLORS = {
+  PRIMARY_COLOR: "#7788EE",
+  TEXT_COLOR_WHITE: "#FFF",
+  PAGE_BACKGROUND_COLOR: "#EAEAEA"
+};
+
