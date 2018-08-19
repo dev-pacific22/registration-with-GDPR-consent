@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { StyleSheet, BackAndroid, Alert } from "react-native";
 import { View, Card, Label, Row, Button, Text } from "native-base";
 import Spinner from "react-native-loading-spinner-overlay";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { addConsentAction } from "../actions";
 import { styles } from "./Style";
 import { COLORS, CONSENT_ARRAY } from "../utils";
 
@@ -16,21 +19,22 @@ class ConsentScreen extends Component {
     });
   }
   onAcknowledgeClick = () => {
+    const { navigate } = this.props.navigation;
     let { currentIndex } = this.state;
     if (currentIndex <= 2) {
       currentIndex++;
       this.setState({ currentIndex });
     } else if (currentIndex == 3) {
-      // TODO : Make Server call to store result.
+      this.props.addConsentAction({ isAccepted: true }, navigate);
     }
   };
   onDeclineClick = () => {
     Alert.alert(
-      "Decline Consents",
+      "Decline Consents?",
       "To register with our application, you have to accept all the consent.",
       [
         {
-          text: "Cancel",
+          text: "Decline",
           onPress: () => BackAndroid.exitApp(),
           style: "cancel"
         },
@@ -40,7 +44,7 @@ class ConsentScreen extends Component {
     );
   };
   componentDidMount = () => {
-    alert(JSON.stringify(this.props.user));
+    
   };
 
   handleBackButtonClick() {
@@ -50,7 +54,6 @@ class ConsentScreen extends Component {
   render() {
     const { consentArray } = this.props;
     const { currentIndex } = this.state;
-
     return (
       <View style={localStyles.rootContainerStyle}>
         <Spinner visible={this.props.isLoading} textStyle={{ color: "#FFF" }} />
@@ -91,10 +94,24 @@ class ConsentScreen extends Component {
 }
 
 ConsentScreen.defaultProps = {
+  isSuccess: false,
   isLoading: false,
   consentArray: CONSENT_ARRAY
 };
-export default ConsentScreen;
+
+const mapStateToProps = ({ consents }) => {
+  const { isError, isLoading } = consents;
+  return { isError, isLoading };
+};
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({ addConsentAction }, dispatch);
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ConsentScreen);
 const localStyles = StyleSheet.create({
   rootContainerStyle: {
     flex: 1,
