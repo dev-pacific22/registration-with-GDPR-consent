@@ -15,5 +15,19 @@ export const styles = {
   },
   buttonSolid: {
     backgroundColor: COLORS.PRIMARY_COLOR
-  }
+  }, 
+  labelQuestionTitle:{
+    color: COLORS.TEXT_COLOR_BLACK,
+    fontSize: 15,
+    padding: 10,
+    fontWeight: "500",
+    alignSelf: "flex-start"
+  },
+  labelQuestion: {
+    color: COLORS.TEXT_COLOR_BLACK,
+    fontSize: 15,
+    padding: 10,
+    fontWeight: "400",
+    alignSelf: "flex-start"
+  },
 };

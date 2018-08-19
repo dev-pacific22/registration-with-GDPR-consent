@@ -22,12 +22,12 @@ export const onRegisterClickAction = ({ name, email, password }) => {
   };
 };
 const loginUserFail = (dispatch, error) => {
-  alert(JSON.stringify(error));
+  alert(JSON.stringify(error.message));
   dispatch({ type: REGISTER_USER_FAIL, payload: error });
 };
 
 const loginUserSuccess = (dispatch, user) => {
-  alert(JSON.stringify(user));
+  // alert('Success ' +JSON.stringify(user));
   dispatch({
     type: REGISTER_USER_SUCCESS,
     payload: user

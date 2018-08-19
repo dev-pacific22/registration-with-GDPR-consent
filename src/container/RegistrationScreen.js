@@ -58,14 +58,13 @@ class RegistrationScreen extends Component {
   };
 shouldComponentUpdate = (nextProps, nextState) => {
   if (!nextProps.isError) {
-    this.props.navigation.navigate("Home", {user: nextProps.user});
+    this.props.navigation.navigate("Consent", {user: nextProps.user});
   }
   return true;
 };
 
 
   render() {
-    const { navigate } = this.props.navigation;
     const { email, name, password } = this.state;
     const {
       hasErrorName,
