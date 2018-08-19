@@ -7,9 +7,11 @@
     "test": "jest"
   },
   "dependencies": {
+    "firebase": "^5.4.0",
     "native-base": "^2.7.2",
     "react": "16.4.1",
     "react-native": "^0.55.4",
+    "react-native-loading-spinner-overlay": "^0.5.2",
     "react-navigation": "^2.11.2",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",

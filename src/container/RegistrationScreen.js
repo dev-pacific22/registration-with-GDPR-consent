@@ -1,15 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet } from "react-native";
-import {
-  Card,
-  Item,
-  Label,
-  Icon,
-  Input,
-  Button,
-  Text,
-  View
-} from "native-base";
+import { Card, Label, Button, Text, View } from "native-base";
+import Spinner from "react-native-loading-spinner-overlay";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { onRegisterClickAction } from "../actions";
@@ -32,7 +24,8 @@ class RegistrationScreen extends Component {
     const errors = this.validateRegistrationForm();
     this.setState({ errors });
     if (Object.keys(errors).length === 0) {
-      this.props.onRegisterClickAction(message);
+      const { name, email, password } = this.state;
+      this.props.onRegisterClickAction({ name, email, password });
     }
   };
   validateRegistrationForm = () => {
@@ -46,7 +39,8 @@ class RegistrationScreen extends Component {
       errors.hasErrorEmail = true;
       errors.errorMessageEmail = "Please enter valid email.";
     }
-    if (!CONSTANTS.REGEX.PASSWORD_REGEX.test(password)) {
+    // if (!CONSTANTS.REGEX.PASSWORD_REGEX.test(password)) {
+    if (password.length <= 0) {
       errors.hasErrorPassword = true;
       errors.errorMessagePassword =
         "Password should be more than 8 letters and combination of at least on upper case, one numeric and one special character.";
@@ -62,8 +56,16 @@ class RegistrationScreen extends Component {
   onPasswordChange = value => {
     this.setState({ password: value });
   };
+shouldComponentUpdate = (nextProps, nextState) => {
+  if (!nextProps.isError) {
+    this.props.navigation.navigate("Home", {user: nextProps.user});
+  }
+  return true;
+};
+
 
   render() {
+    const { navigate } = this.props.navigation;
     const { email, name, password } = this.state;
     const {
       hasErrorName,
@@ -73,9 +75,9 @@ class RegistrationScreen extends Component {
       hasErrorPassword,
       errorMessagePassword
     } = this.state.errors;
-
     return (
       <View style={localStyles.rootContainerStyle}>
+        <Spinner visible={this.props.isLoading} textStyle={{ color: "#FFF" }} />
         <Card style={localStyles.containerStyle}>
           <Label style={styles.labelHeader}>Register User</Label>
           <FloatingInput
@@ -120,14 +122,18 @@ class RegistrationScreen extends Component {
 }
 
 const mapStateToProps = ({ registration }) => {
-  const { email, password, error, loading, message } = registration;
-  return { email, password, error, loading, message };
+  const { isError, isLoading, message, user } = registration;
+  return { isError, isLoading, message, user };
 };
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators({ onRegisterClickAction }, dispatch);
 };
 
+RegistrationScreen.defaultProps = {
+  isLoading: false,
+  isError: true
+};
 export default connect(
   mapStateToProps,
   mapDispatchToProps
