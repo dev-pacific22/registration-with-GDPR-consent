@@ -39,7 +39,6 @@ export const fetchConsentForUSer = navigate => {
       .on("value", snapshot => {
         dispatch({ type: FETCH_CONSENT_SUCCESS });
         if (snapshot.val()) {
-          // alert(JSON.stringify(currentUser));
           navigate("Home", {user: currentUser});
         }
       });
