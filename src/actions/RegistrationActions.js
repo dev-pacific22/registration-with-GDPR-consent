@@ -16,7 +16,16 @@ export const onRegisterClickAction = ({ name, email, password }) => {
         firebase
           .auth()
           .createUserWithEmailAndPassword(email, password)
-          .then(user => loginUserSuccess(dispatch, user))
+          .then(user => {
+            loginUserSuccess(dispatch, user);
+            const { currentUser } = firebase.auth();
+            firebase
+              .database()
+              .ref(`users/ + ${currentUser.uid}`)
+              .set({
+                name: name
+              });
+          })
           .catch(error => loginUserFail(dispatch, error));
       });
   };
@@ -26,8 +35,7 @@ const loginUserFail = (dispatch, error) => {
   dispatch({ type: REGISTER_USER_FAIL, payload: error });
 };
 
-const loginUserSuccess = (dispatch, user) => {
-  // alert('Success ' +JSON.stringify(user));
+const loginUserSuccess = (dispatch, user, name) => {
   dispatch({
     type: REGISTER_USER_SUCCESS,
     payload: user

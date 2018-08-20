@@ -4,7 +4,7 @@ import { View, Card, Label, Row, Button, Text } from "native-base";
 import Spinner from "react-native-loading-spinner-overlay";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { addConsentAction } from "../actions";
+import { addConsentAction, fetchConsentForUSer } from "../actions";
 import { styles } from "./Style";
 import { COLORS, CONSENT_ARRAY } from "../utils";
 
@@ -44,7 +44,8 @@ class ConsentScreen extends Component {
     );
   };
   componentDidMount = () => {
-    
+    //TODO: to check for the current user accepted the consent if yes redirect him to home screen.
+    this.props.fetchConsentForUSer(this.props.navigation.navigate);
   };
 
   handleBackButtonClick() {
@@ -105,7 +106,10 @@ const mapStateToProps = ({ consents }) => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ addConsentAction }, dispatch);
+  return bindActionCreators(
+    { addConsentAction, fetchConsentForUSer },
+    dispatch
+  );
 };
 
 export default connect(
