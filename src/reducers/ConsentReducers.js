@@ -1,3 +1,6 @@
+/**
+ * Reducer function to handle all consent related state in redux store.
+ */
 import {
   CREATE_CONSENT,
   CREATE_CONSENT_SUCCESS,

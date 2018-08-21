@@ -4,7 +4,10 @@ import {
   REGISTER_USER_SUCCESS,
   REGISTER_USER_FAIL
 } from "./types";
-
+/**
+ * Sign in user if exist else create user to firebase back end.
+ * @param {JSON} object that contains name, email, password.
+ */
 export const onRegisterClickAction = ({ name, email, password }) => {
   return dispatch => {
     dispatch({ type: ON_REGISTER_CLICK });

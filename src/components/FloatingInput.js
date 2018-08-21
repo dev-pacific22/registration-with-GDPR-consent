@@ -1,3 +1,6 @@
+/**
+ * Custom floating common input for the application.
+ */
 import React, { Component } from "react";
 import { StyleSheet } from "react-native";
 import { Item, Icon, Label, Input } from "native-base";

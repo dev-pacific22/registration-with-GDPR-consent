@@ -1,3 +1,6 @@
+/**
+ * Reducer function to handle all registration related state in redux store.
+ */
 import {
   ON_REGISTER_CLICK,
   REGISTER_USER_SUCCESS,

@@ -1,3 +1,6 @@
+/**
+ * Home screen component.
+ */
 import React, { Component } from "react";
 import {
   View,
@@ -20,7 +23,7 @@ class HomeScreen extends Component {
     this.state = {};
   }
   componentDidMount = () => {
-    //TODO: Make server call here to fetch data from server.
+    //TODO: Make server call here to fetch data from server for home screen.
     console.log(JSON.stringify(this.props.navigation.state.params));
   };
 

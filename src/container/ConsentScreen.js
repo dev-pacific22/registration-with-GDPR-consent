@@ -1,5 +1,8 @@
+/**
+ * Consent screen component to show and record user consent.
+ */
 import React, { Component } from "react";
-import { StyleSheet, BackAndroid, Alert } from "react-native";
+import { StyleSheet, BackHandler, Alert } from "react-native";
 import {
   View,
   Card,
@@ -26,20 +29,27 @@ class ConsentScreen extends Component {
     this.state = {
       currentIndex: 0
     };
-    BackAndroid.addEventListener("hardwareBackPress", () => {
-      this.onDeclineClick();
-    });
   }
+  /**
+   * Handle user action on acknowledge click.
+   * @params : none
+   * @returns : none
+   */
   onAcknowledgeClick = () => {
-    const { navigate } = this.props.navigation;
+    const { navigation } = this.props;
     let { currentIndex } = this.state;
     if (currentIndex <= 2) {
       currentIndex++;
       this.setState({ currentIndex });
     } else if (currentIndex == 3) {
-      this.props.addConsentAction({ isAccepted: true }, navigate);
+      this.props.addConsentAction({ isAccepted: true }, navigation);
     }
   };
+  /**
+   * Handle user action on decline click.
+   * @params : none
+   * @returns : none
+   */
   onDeclineClick = () => {
     Alert.alert(
       "Decline Consents?",
@@ -47,23 +57,19 @@ class ConsentScreen extends Component {
       [
         {
           text: "Decline",
-          onPress: () => BackAndroid.exitApp(),
+          onPress: () => BackHandler.exitApp(),
           style: "cancel"
         },
         { text: "Continue" }
       ],
       { cancelable: false }
     );
+    return false;
   };
   componentDidMount = () => {
-    //TODO: to check for the current user accepted the consent if yes redirect him to home screen.
-    this.props.fetchConsentForUSer(this.props.navigation.navigate);
+    // Check for the current user accepted the consent if yes redirect him to home screen.
+    this.props.fetchConsentForUSer(this.props.navigation);
   };
-
-  handleBackButtonClick() {
-    this.onDeclineClick();
-    return true;
-  }
   render() {
     const { consentArray } = this.props;
     const { currentIndex } = this.state;
@@ -114,10 +120,6 @@ class ConsentScreen extends Component {
         </View>
       </React.Fragment>
     );
-  }
-
-  componentWillUnmount() {
-    BackAndroid.removeEventListener("hardwareBackPress");
   }
 }
 

@@ -20,7 +20,13 @@ class RegistrationScreen extends Component {
       password: ""
     };
   }
-  onRegisterClick = message => {
+
+  /**
+   * Handle register click action..
+   * @params : none
+   * @returns : none
+   */
+  onRegisterClick = () => {
     const errors = this.validateRegistrationForm();
     this.setState({ errors });
     if (Object.keys(errors).length === 0) {
@@ -28,6 +34,12 @@ class RegistrationScreen extends Component {
       this.props.onRegisterClickAction({ name, email, password });
     }
   };
+
+  /**
+   * Handle validation for complete form.
+   * @params : none
+   * @returns : error object if there is any invalid entry.
+   */
   validateRegistrationForm = () => {
     const errors = {};
     const { name, email, password } = this.state;
@@ -39,30 +51,43 @@ class RegistrationScreen extends Component {
       errors.hasErrorEmail = true;
       errors.errorMessageEmail = "Please enter valid email.";
     }
-    // if (!CONSTANTS.REGEX.PASSWORD_REGEX.test(password)) {
-    if (password.length <= 0) {
+    if (!CONSTANTS.REGEX.PASSWORD_REGEX.test(password)) {
       errors.hasErrorPassword = true;
       errors.errorMessagePassword =
         "Password should be more than 8 letters and combination of at least on upper case, one numeric and one special character.";
     }
     return errors;
   };
+  /**
+   * OnChange event handler for name field
+   * @params : changed value
+   * @returns : none
+   */
   onNameChange = value => {
     this.setState({ name: value });
   };
+  /**
+   * OnChange event handler for email field
+   * @params : changed value
+   * @returns : none
+   */
   onEmailChange = value => {
     this.setState({ email: value });
   };
+  /**
+   * OnChange event handler for password field
+   * @params : changed value
+   * @returns : none
+   */
   onPasswordChange = value => {
     this.setState({ password: value });
   };
-shouldComponentUpdate = (nextProps, nextState) => {
-  if (!nextProps.isError) {
-    this.props.navigation.navigate("Consent", {user: nextProps.user});
-  }
-  return true;
-};
-
+  shouldComponentUpdate = (nextProps, nextState) => {
+    if (!nextProps.isError) {
+      this.props.navigation.navigate("Consent", { user: nextProps.user });
+    }
+    return true;
+  };
 
   render() {
     const { email, name, password } = this.state;
@@ -107,14 +132,13 @@ shouldComponentUpdate = (nextProps, nextState) => {
           />
           <Button
             style={[localStyles.buttonRegister, styles.buttonSolid]}
-            onPress={() => this.onRegisterClick(errorMessageName)}
+            onPress={() => this.onRegisterClick()}
           >
             <Text uppercase={false} style={styles.buttonText}>
               Register
             </Text>
           </Button>
         </Card>
-        <Text> {this.props.message} </Text>
       </View>
     );
   }

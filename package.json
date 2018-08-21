@@ -4,10 +4,12 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest", 
+    "bundle" : "react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res"
+    
   },
   "dependencies": {
-    "firebase": "^5.4.0",
+    "firebase": "^4.13.1",
     "native-base": "^2.7.2",
     "react": "16.4.1",
     "react-native": "^0.55.4",

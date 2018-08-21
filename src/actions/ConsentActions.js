@@ -7,8 +7,14 @@ import {
   FETCH_CONSENT_SUCCESS,
   FETCH_CONSENT_FAIL
 } from "./types";
+import { StackActions, NavigationActions } from "react-navigation";
 
-export const addConsentAction = ({ isAccepted }, navigate) => {
+/**
+ * Action to setting a consent for the user.
+ * @param {boolean} isAccepted flag to set in database.
+ * @param {navigation} navigation navigate to the next screen.
+ */
+export const addConsentAction = ({ isAccepted }, navigation) => {
   const { currentUser } = firebase.auth();
 
   return dispatch => {
@@ -19,16 +25,25 @@ export const addConsentAction = ({ isAccepted }, navigate) => {
       .set({ isAccepted })
       .then(() => {
         dispatch({ type: CREATE_CONSENT_SUCCESS });
-        navigate("Home", {user: currentUser});
+        const resetAction = StackActions.reset({
+          index: 0,
+          actions: [NavigationActions.navigate({ routeName: "Home" })]
+        });
+        navigation.dispatch(resetAction);
       })
+
       .catch(error => {
         alert(error.message);
         dispatch({ type: CREATE_CONSENT_FAIL });
       });
   };
 };
-
-export const fetchConsentForUSer = navigate => {
+/**
+ * Check whether the consent is set for the current user or not.
+ * if set then navigate to home else keep on the same screen.
+ * @param {navigation} navigation
+ */
+export const fetchConsentForUSer = navigation => {
   const { currentUser } = firebase.auth();
 
   return dispatch => {
@@ -39,9 +54,12 @@ export const fetchConsentForUSer = navigate => {
       .on("value", snapshot => {
         dispatch({ type: FETCH_CONSENT_SUCCESS });
         if (snapshot.val()) {
-          navigate("Home", {user: currentUser});
+          const resetAction = StackActions.reset({
+            index: 0,
+            actions: [NavigationActions.navigate({ routeName: "Home" })]
+          });
+          navigation.dispatch(resetAction);
         }
       });
-  
   };
 };

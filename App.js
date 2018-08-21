@@ -16,8 +16,10 @@ import { firebaseConfig } from "./src/config/config";
 export default class App extends Component {
   componentWillMount = () => {
     // Initialize Firebase
-   // Also please create your own firebase config object and use it.
-    firebase.initializeApp(firebaseConfig);
+    // Also please create your own firebase config object and use it.
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
   };
 
   render() {
