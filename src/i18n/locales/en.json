@@ -1,0 +1,34 @@
+{
+  "title": {
+    "home": "Home",
+    "gdpr_consents": "GDPR Consents",
+    "decline_consents": "Decline Consents?"
+  },
+  "label": {
+    "register_screen": "Register Screen",
+    "dear_user": "Dear User,",
+    "thank_you": "Thank you!",
+    "consents": "Consents"
+
+  },
+  "placeholder": {
+    "full_name": "Full Name",
+    "email": "Email",
+    "password": "Password"
+  },
+  "button": {
+    "register": "Register",
+    "decline": "Decline",
+    "continue": "Continue", 
+    "acknowledge" : "Acknowledge"
+  },
+  "error": {
+    "enter_valid_email": "Please enter valid email.",
+    "enter_valid_password": "Password should be more than 8 letters and combination of at least on upper case, one numeric and one special character.",
+    "enter_full_name": "Please enter your full name."
+  },
+  "message": {
+    "welcome-message": " Welcome to the app, you have acknowledge all the user consents and you are successfully registered for the app. ",
+    "decline_message": "To register with our application, you have to accept all the consent."
+  }
+}

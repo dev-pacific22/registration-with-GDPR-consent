@@ -9,6 +9,7 @@ import FloatingInput from "../components/FloatingInput";
 import { COLORS, CONSTANTS } from "../utils";
 import { styles } from "./Style";
 import validator from "validator";
+import { strings } from '../i18n';
 
 class RegistrationScreen extends Component {
   constructor(props) {
@@ -45,16 +46,15 @@ class RegistrationScreen extends Component {
     const { name, email, password } = this.state;
     if (name.length <= 0) {
       errors.hasErrorName = true;
-      errors.errorMessageName = "Please enter your full name.";
+      errors.errorMessageName = strings('error.enter_full_name');
     }
     if (!validator.isEmail(email)) {
       errors.hasErrorEmail = true;
-      errors.errorMessageEmail = "Please enter valid email.";
+      errors.errorMessageEmail = strings('error.enter_valid_email');
     }
     if (!CONSTANTS.REGEX.PASSWORD_REGEX.test(password)) {
       errors.hasErrorPassword = true;
-      errors.errorMessagePassword =
-        "Password should be more than 8 letters and combination of at least on upper case, one numeric and one special character.";
+      errors.errorMessagePassword = strings('error.enter_valid_password');
     }
     return errors;
   };
@@ -103,9 +103,9 @@ class RegistrationScreen extends Component {
       <View style={localStyles.rootContainerStyle}>
         <Spinner visible={this.props.isLoading} textStyle={{ color: "#FFF" }} />
         <Card style={localStyles.containerStyle}>
-          <Label style={styles.labelHeader}>Register User</Label>
+          <Label style={styles.labelHeader}>{strings('label.register_screen')}</Label>
           <FloatingInput
-            placeHolder="Full Name"
+            placeHolder={strings('placeholder.full_name')}
             iconName="account-box"
             hasError={hasErrorName}
             errorMessage={errorMessageName}
@@ -114,7 +114,7 @@ class RegistrationScreen extends Component {
           />
 
           <FloatingInput
-            placeHolder="Email"
+            placeHolder={strings('placeholder.email')}
             iconName="account-box"
             hasError={hasErrorEmail}
             errorMessage={errorMessageEmail}
@@ -122,7 +122,7 @@ class RegistrationScreen extends Component {
             onChangeText={this.onEmailChange}
           />
           <FloatingInput
-            placeHolder="Password"
+            placeHolder={strings('placeholder.password')}
             iconName="lock"
             hasError={hasErrorPassword}
             errorMessage={errorMessagePassword}
@@ -135,7 +135,7 @@ class RegistrationScreen extends Component {
             onPress={() => this.onRegisterClick()}
           >
             <Text uppercase={false} style={styles.buttonText}>
-              Register
+              {strings('button.register')}
             </Text>
           </Button>
         </Card>

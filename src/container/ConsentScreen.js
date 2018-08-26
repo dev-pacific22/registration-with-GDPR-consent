@@ -22,6 +22,7 @@ import { bindActionCreators } from "redux";
 import { addConsentAction, fetchConsentForUSer } from "../actions";
 import { styles } from "./Style";
 import { COLORS, CONSENT_ARRAY } from "../utils";
+import { strings } from "../i18n";
 
 class ConsentScreen extends Component {
   constructor(props) {
@@ -52,15 +53,15 @@ class ConsentScreen extends Component {
    */
   onDeclineClick = () => {
     Alert.alert(
-      "Decline Consents?",
-      "To register with our application, you have to accept all the consent.",
+      strings("title.decline_consents"),
+      strings("message.decline_message"),
       [
         {
-          text: "Decline",
+          text: strings("button.decline"),
           onPress: () => BackHandler.exitApp(),
           style: "cancel"
         },
-        { text: "Continue" }
+        { text: strings("button.continue") }
       ],
       { cancelable: false }
     );
@@ -82,7 +83,7 @@ class ConsentScreen extends Component {
             </Button>
           </Left>
           <Body>
-            <Title>GDPR Consents</Title>
+            <Title>{strings('title.gdpr_consents')}</Title>
           </Body>
         </Header>
         <View style={localStyles.rootContainerStyle}>
@@ -92,7 +93,7 @@ class ConsentScreen extends Component {
           />
 
           <Card style={localStyles.containerStyle}>
-            <Label style={styles.labelHeader}>Consent</Label>
+            <Label style={styles.labelHeader}>{strings('label.consents')}</Label>
             <Label style={styles.labelQuestionTitle}>
               {consentArray[currentIndex].consentTitle}
             </Label>
@@ -105,14 +106,14 @@ class ConsentScreen extends Component {
                 style={[localStyles.buttonRegister]}
                 onPress={() => this.onDeclineClick()}
               >
-                <Text uppercase={false}>Decline</Text>
+                <Text uppercase={false}>{strings('button.decline')}</Text>
               </Button>
               <Button
                 style={[localStyles.buttonRegister, styles.buttonSolid]}
                 onPress={() => this.onAcknowledgeClick()}
               >
                 <Text uppercase={false} style={styles.buttonText}>
-                  Acknowledge
+                 {strings('button.acknowledge')}
                 </Text>
               </Button>
             </Row>

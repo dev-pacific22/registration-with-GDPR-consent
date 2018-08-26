@@ -16,6 +16,7 @@ import {
 import { StyleSheet } from "react-native";
 import { styles } from "./Style";
 import { COLORS } from "../utils";
+import { strings } from "../i18n";
 
 class HomeScreen extends Component {
   constructor(props) {
@@ -37,15 +38,19 @@ class HomeScreen extends Component {
             </Button>
           </Left>
           <Body>
-            <Title>Home</Title>
+            <Title>{strings("title.home")}</Title>
           </Body>
         </Header>
         <View style={localStyles.containerStyle}>
-          <Label style={styles.labelQuestionTitle}>Dear user,</Label>
-          <Label style={styles.labelQuestion}>
-            Welcome to the app, you have acknowledge all the user consents and you are successfully registered for the app. 
+          <Label style={styles.labelQuestionTitle}>
+            {strings("label.dear_user")}
           </Label>
-          <Label style={styles.labelQuestionTitle}>Thank you !!</Label>
+          <Label style={styles.labelQuestion}>
+            {strings("message.welcome-message")}
+          </Label>
+          <Label style={styles.labelQuestionTitle}>
+            {strings("label.thank_you")}
+          </Label>
         </View>
       </React.Fragment>
     );
